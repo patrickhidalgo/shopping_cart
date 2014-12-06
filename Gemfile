@@ -8,7 +8,10 @@ group :development, :test do
   gem 'capybara'
   gem 'faker'
   gem 'launchy'
+  gem 'shoulda-matchers'
 end
+
+gem 'ruby_gntp'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'

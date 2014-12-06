@@ -9,8 +9,8 @@ Features:
   TBD
 
 Requirements:
-    Ruby 2.1.1
-    Rails 4.1.0
+    Ruby 2.1.4
+    Rails 4.1.6
     Various Gems (See Gemfile for full list)
 
 Usage:

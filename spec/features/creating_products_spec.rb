@@ -12,9 +12,8 @@ feature "Product Management" do
     click_button 'Create Product'
 
     expect(page).to have_text('Product was successfully created')
-
-
   end
+
   scenario 'User edits a product' do
     product = FactoryGirl.create(:product)
     visit edit_product_path(product)
@@ -29,14 +28,38 @@ feature "Product Management" do
 
   scenario 'User views a product' do
     product = FactoryGirl.create(:product)
-    visit show_product_path(product)
+    visit '/'
+    click_link 'Show'
+
+    expect(page).to have_text(product.name)
+
   end
 
   scenario 'User views a list of products' do
+    product1 = FactoryGirl.create(:product)
+    product2 = FactoryGirl.create(:product)
 
+    visit '/'
+    expect(page).to have_text(product1.name)
+    expect(page).to have_text(product2.name)
+
+    save_and_open_page
   end
 
   scenario 'User deletes a product' do
+    product = FactoryGirl.create(:product)
 
+    visit '/'
+    click_link 'Destroy'
+
+    expect(page).to have_content('Product was successfully deleted')
+
+    within('table') do
+      expect(page).to_not have_content(product.name)
+      expect(page).to_not have_content(product.description)
+      expect(page).to_not have_content(product.img_url)
+      expect(page).to_not have_content(product.price)
+    end
+    save_and_open_page
   end
 end

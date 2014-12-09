@@ -26,40 +26,50 @@ feature "Product Management" do
     expect(page).to have_text('Apple')
   end
 
-  scenario 'User views a product' do
+  scenario 'User views an existing product' do
     product = FactoryGirl.create(:product)
-    visit '/'
-    click_link 'Show'
+    visit product_path(product)
 
     expect(page).to have_text(product.name)
-
+    expect(page).to have_text(product.description)
+    expect(page).to have_text(product.price)
+    expect(page).to have_image(product.image_url.downcase)
   end
 
   scenario 'User views a list of products' do
     product1 = FactoryGirl.create(:product)
     product2 = FactoryGirl.create(:product)
 
-    visit '/'
-    expect(page).to have_text(product1.name)
-    expect(page).to have_text(product2.name)
+    visit products_path
 
+    expect(page).to have_text(product1.name)
+    expect(page).to have_text(product1.description)
+    expect(page).to have_text(product1.price)
+    expect(page).to have_image(product1.image_url.downcase)
+
+    expect(page).to have_text(product2.name)
+    expect(page).to have_text(product2.description)
+    expect(page).to have_text(product2.price)
+    expect(page).to have_image(product2.image_url.downcase)
     # save_and_open_page
   end
 
   scenario 'User deletes a product' do
     product = FactoryGirl.create(:product)
+    product2 = FactoryGirl.create(:product)
 
-    visit '/'
-    click_link 'Destroy'
+    visit products_path
+    within "#product_#{product.id}" do
+      click_link 'Destroy'
+    end
 
-    expect(page).to have_content('Product was successfully deleted')
+    expect(page).to have_content('Product was successfully destroyed.')
 
-    within('table') do
       expect(page).to_not have_content(product.name)
       expect(page).to_not have_content(product.description)
-      expect(page).to_not have_content(product.img_url)
+      expect(page).to_not have_image(product.image_url.downcase)
       expect(page).to_not have_content(product.price)
-    end
+
     # save_and_open_page
   end
 end

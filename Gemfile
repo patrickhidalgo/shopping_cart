@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'guard-rspec', '~> 4.3.1'
+  gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'factory_girl_rails'
   gem 'capybara'

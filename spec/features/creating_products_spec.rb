@@ -43,7 +43,7 @@ feature "Product Management" do
     expect(page).to have_text(product1.name)
     expect(page).to have_text(product2.name)
 
-    save_and_open_page
+    # save_and_open_page
   end
 
   scenario 'User deletes a product' do
@@ -60,6 +60,6 @@ feature "Product Management" do
       expect(page).to_not have_content(product.img_url)
       expect(page).to_not have_content(product.price)
     end
-    save_and_open_page
+    # save_and_open_page
   end
 end
